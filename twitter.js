@@ -1,8 +1,8 @@
-const crypto = require('crypto');
-const OAuth = require('oauth-1.0a');
-const Fetch = require('cross-fetch');
-const querystring = require('querystring');
-const Stream = require('./stream');
+import crypto from 'node:crypto';
+import OAuth from 'oauth-1.0a';
+import Fetch from 'cross-fetch';
+import Stream from './stream';
+import querystring from 'querystring';
 
 const getUrl = (subdomain, endpoint = '1.1') =>
   `https://${subdomain}.twitter.com/${endpoint}`;
@@ -181,7 +181,7 @@ class Twitter {
     let parameters = { oauth_verifier: options.oauth_verifier, oauth_token: options.oauth_token };
     if (parameters.oauth_verifier && parameters.oauth_token) requestData.url += '?' + querystring.stringify(parameters);
 
-    const headers = this.client.toHeader( this.client.authorize(requestData) );
+    const headers = this.client.toHeader(this.client.authorize(requestData));
 
     const results = await Fetch(requestData.url, {
       method: 'POST',
